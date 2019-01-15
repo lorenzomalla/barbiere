@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="htmlLogin" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="css/custom.css" rel="stylesheet">
+<script type="text/javascript" src="js/registrazione.js"></script>
+</head>
+<body>
+	<div class="jumbotron text-center">
+		<h1>Registrazione</h1>
+	</div>
+	<div class="container-fluid userInfo">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-6">
+			<form class="form form-horizontal" method="POST" th:action="@{/}">
+				<div class="form-group">
+					<label class="control-label col-lg-3" for="email">Email:</label>
+					<div class="col-lg-9">
+						<input type="text" class="form-control email transparent-input"
+							name="email" placeholder="Inserisci email" id="email">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-3" for="username">Username:</label>
+					<div class="col-lg-9">
+						<input type="text" class="form-control username transparent-input"
+							placeholder="Inserisci username" name="username">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-3" for="password">Password:</label>
+					<div class="col-lg-9">
+						<input type="password"
+							class="form-control password transparent-input"
+							placeholder="Inserisci password" name="password" id="password">
+						<meter max="3" value="0" id="result"></meter>
+						<b><span class="strength"></span></b>
+						<div class="small">
+							<span class="fa fa-info-circle color-blue"></span> (Min. 8
+							caratteri, deve contenere numeri, lettere e almeno un carattere
+							speciale tra:-_.!$)
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-3" for="conferma_password">Conferma
+						Password:</label>
+					<div class="col-lg-9">
+						<input type="password"
+							class="form-control conferma_password transparent-input"
+							placeholder="Conferma password" name="conferma_password"
+							id="conferma_password">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-3" for="telefono">Telefono:</label>
+					<div class="col-lg-9">
+						<input type="text" class="form-control telefono transparent-input"
+							id="telefono" name="telefono" placeholder="Telefono">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-3" for="country">Città:</label>
+					<div class="col-lg-9">
+						<input type="text" class="form-control country transparent-input"
+							placeholder="Inserisci username" name="username">
+					</div>
+				</div>
+				<div class="form-group margin-top-20">
+					<div class="col-lg-offset-3 col-lg-9 small-screen-btn-container">
+						<input type="submit" class="btn btn-default button registrati"
+							value="Registrati" />
+					</div>
+				</div>
+<!-- 				<p th:text="#{barbershop.backendrest.checkemail}">Prova</p> -->
+			</form>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+</body>
+</html>
