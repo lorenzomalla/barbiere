@@ -6,31 +6,71 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link
-	href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
 <script
-	src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<link href="css/custom.css" rel="stylesheet">
-<script type="text/javascript" src="js/registrazione.js"></script>
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<link href="css/homepage.css" rel="stylesheet">
 </head>
 <body>
-	<div class="jumbotron text-center">
-		<h1>Registrazione</h1>
-	</div>
-	<h1>
-		Benvenuto  <b th:text="${username}"></b>
-
-	</h1>
-	<div class="container-fluid userInfo">
-		<div class="col-sm-3"></div>
-		<div class="col-sm-6">
-			<div class="col-sm-3"></div>
+	<div class="box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cards">
+					<div class="box-part text-center">
+						<i class="fa fa-calendar-alt fa-3x" aria-hidden="true"></i>
+						<div class="title">
+							<h4>Prenota subito</h4>
+						</div>
+						<div class="text">
+							<span>Clicca qui per prenotare subito dal tuo barbiere</span>
+						</div>
+						<a href="#">Clicca qui</a>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 cards">
+					<div class="box-part text-center">
+						<i class="fa fa-cog fa-3x" aria-hidden="true"></i>
+						<div class="title">
+							<h4>Modifica profilo</h4>
+						</div>
+						<div class="text">
+							<span>Clicca qui per modificare il tuo profilo</span>
+						</div>
+						<a href="#">Clicca qui</a>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 cards">
+					<div class="box-part text-center">
+						<i class="fa fa-map-pin fa-3x" aria-hidden="true"></i>
+						<div class="title">
+							<h4>Dove siamo</h4>
+						</div>
+						<div class="text">
+							<span>Clicca in basso per sapere dove siamo.</span>
+						</div>
+						<a href="#">Clicca qui</a>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 cards">
+					<div class="box-part text-center">
+						<i class="fa fa-question-circle fa-3x" aria-hidden="true"></i>
+						<div class="title">
+							<h4>Chi siamo</h4>
+						</div>
+						<div class="text">
+							<span>Clicca qui per sapere chi siamo.</span>
+						</div>
+						<a href="#">Learn More</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
