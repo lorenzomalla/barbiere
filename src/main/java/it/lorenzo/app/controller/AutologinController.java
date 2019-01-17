@@ -60,7 +60,7 @@ public class AutologinController {
 			}
 		} catch (Exception e) {
 			// TODO: Da rilanciare eccezione customizzata quando l'auto login va in errore
-			System.out.println("Autologin fallito." + e.getMessage());
+			System.out.println("Autologin fallito." + e.getMessage() + e);
 		}
 		return "redirect:/hello";
 	}

@@ -95,7 +95,7 @@ $(function() {
 					cache : 'false',
 					success : function(data) {
 						console.log("Data: " + data);
-						if (data.status == 200) {
+						if (data != null) {
 							check = true;
 							$('.form').submit();
 						}
