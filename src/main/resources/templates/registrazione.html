@@ -26,7 +26,8 @@
 	<div class="container-fluid userInfo">
 		<div class="col-sm-3"></div>
 		<div class="col-sm-6">
-			<form class="form form-horizontal" method="POST" th:action="@{/}">
+			<form class="form form-horizontal" method="POST"
+				th:action="@{/register/signup}">
 				<div class="form-group">
 					<label class="control-label col-lg-3" for="email">Email:</label>
 					<div class="col-lg-9">
@@ -77,7 +78,7 @@
 					<label class="control-label col-lg-3" for="country">Città:</label>
 					<div class="col-lg-9">
 						<input type="text" class="form-control country transparent-input"
-							placeholder="Inserisci username" name="username">
+							placeholder="Inserisci la tua città" name="città">
 					</div>
 				</div>
 				<div class="form-group margin-top-20">
@@ -86,7 +87,7 @@
 							value="Registrati" />
 					</div>
 				</div>
-<!-- 				<p th:text="#{barbershop.backendrest.checkemail}">Prova</p> -->
+				<!-- 				<p th:text="#{barbershop.backendrest.checkemail}">Prova</p> -->
 			</form>
 		</div>
 		<div class="col-sm-3"></div>

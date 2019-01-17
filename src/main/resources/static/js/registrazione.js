@@ -12,8 +12,8 @@ function getAllCustomerInfo() {
 		"password" : password,
 		"email" : email,
 		"country" : citta,
-		"confermaPassword" : confermaPassword,
-		"telefono" : telefono
+//		"confermaPassword" : confermaPassword,
+//		"telefono" : telefono
 	}
 	return userInfo;
 }

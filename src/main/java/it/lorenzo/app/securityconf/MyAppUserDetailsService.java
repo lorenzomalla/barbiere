@@ -10,10 +10,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestAttribute;
 
 import it.lorenzo.app.bean.UserInfoBean;
 import it.lorenzo.app.repository.UserInfoRepository;
-
 
 @Service
 public class MyAppUserDetailsService implements UserDetailsService {
@@ -22,7 +23,7 @@ public class MyAppUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserInfoBean activeUserInfo = userInfoDAO.findByUsernameAndEnabled(username, true);
+		UserInfoBean activeUserInfo = userInfoDAO.findByUsername(username);
 		GrantedAuthority authority = new SimpleGrantedAuthority(activeUserInfo.getRole());
 		UserDetails userDetails = (UserDetails) new User(activeUserInfo.getUsername(), activeUserInfo.getPassword(),
 				Arrays.asList(authority));
