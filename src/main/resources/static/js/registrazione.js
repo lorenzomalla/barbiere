@@ -95,8 +95,10 @@ $(function() {
 					cache : 'false',
 					success : function(data) {
 						console.log("Data: " + data);
-						check = true;
-						$('.form').submit();
+						if (data.status == 200) {
+							check = true;
+							$('.form').submit();
+						}
 					},
 					error : function(data) {
 						if (data.responseJSON.code == 612) {
@@ -141,7 +143,7 @@ $(function() {
 	});
 });
 
- $(function() {
+$(function() {
 	$('#email').blur(function() {
 		var username = $('.username').val();
 		var password = $('.password').val();
