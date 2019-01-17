@@ -20,7 +20,6 @@ public class LoginController {
 			return "redirect:/hello";
 		}
 		return "login";
-
 	}
 
 //	@RequestMapping(value = "/logout", method = RequestMethod.GET)

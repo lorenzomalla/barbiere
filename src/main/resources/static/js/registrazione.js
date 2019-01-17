@@ -12,8 +12,8 @@ function getAllCustomerInfo() {
 		"password" : password,
 		"email" : email,
 		"country" : citta,
-//		"confermaPassword" : confermaPassword,
-//		"telefono" : telefono
+	// "confermaPassword" : confermaPassword,
+	// "telefono" : telefono
 	}
 	return userInfo;
 }
@@ -28,7 +28,7 @@ $(function() {
 			return;
 		}
 		// Regular Expressions.
-//		var regex = new Array();
+		// var regex = new Array();
 		var regex = [];
 		regex.push("[A-Z]"); // Uppercase Alphabet.
 		regex.push("[a-z]"); // Lowercase Alphabet.
@@ -99,12 +99,13 @@ $(function() {
 						$('.form').submit();
 					},
 					error : function(data) {
-						console.log("Data: " + data);
+						if (data.responseJSON.code == 612) {
+							console.log(data.responseJSON.reason);
+						}
 					}
 				});
-			} else {
-				// alert("Password vuota");
 			}
+			e.preventDefault();
 		}
 	});
 });
@@ -140,7 +141,7 @@ $(function() {
 	});
 });
 
-$(function() {
+ $(function() {
 	$('#email').blur(function() {
 		var username = $('.username').val();
 		var password = $('.password').val();
@@ -151,7 +152,7 @@ $(function() {
 			"email" : email
 		}
 		$.ajax({
-			url : '/rest/email/check',
+			url : '/rest/check/user/info',
 			type : 'POST',
 			contentType : 'application/json',
 			data : JSON.stringify(userInfo),
@@ -159,15 +160,21 @@ $(function() {
 				console.log("Data: " + data);
 				$('#email').css("border-color", "#ced4da");
 				$('.registrati').prop('disabled', false);
+				$('#username').css("border-color", "#ced4da");
+				$('.registrati').prop('disabled', false);
 			},
 			error : function(data) {
 				if (data.status != 400) {
 					alert("C'è stato un errore al server");
-				} else {
+				} else if (data.responseJSON.code == 610) {
 					$('#email').css("border-color", "red");
+					alert(data.responseJSON.reason);
+					$('.registrati').prop('disabled', true);
+				} else if (data.responseJSON.code == 611) {
+					$('#username').css("border-color", "red");
+					alert(data.responseJSON.reason);
 					$('.registrati').prop('disabled', true);
 				}
-
 			}
 		});
 	});

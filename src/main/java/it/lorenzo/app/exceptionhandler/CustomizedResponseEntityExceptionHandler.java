@@ -34,9 +34,9 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		String unrecognizedField = null;
 		if (m.find()) {
 			unrecognizedField = m.group(1);
-			error.setDescription(Constant.ERR_693_DESC.replace("#parameter-name#", unrecognizedField));
-			error.setCode(Constant.ERR_693_CODE);
-			error.setMessage(Constant.ERR_693_MSG);
+			error.setDescription("Il campo #parameter-name#".replace("#parameter-name#", unrecognizedField));
+			error.setCode(620);
+			error.setMessage("");
 			LOGGER.log(Level.INFO, " - BadRequestException(400):" + error.toString());
 			LOGGER.log(Level.INFO, " - BadRequestException(400):" + ex.getMessage());
 			return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);

@@ -5,9 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,17 +48,23 @@ public class RegistrazioneRestController {
 	}
 
 	private void checkParameterBody(UserInfo body) throws BadRequestException {
-//		if (!body.getPassword().matches(Regex.REGEX_PASSWORD)) {
-//			throw new BadRequestException(Constant.ERR_610_MSG, Constant.ERR_610_CODE);
-//		}
+		if (!body.getPassword().matches(Regex.REGEX_PASSWORD)) {
+			throw new BadRequestException(Constant.PASSWORD_MSG, Constant.PASSWORD_CODE);
+		}
 	}
 
-	@RequestMapping(value = "/email/check", method = RequestMethod.POST, consumes = "application/json")
-	public int checkEmail(@RequestBody UserInfo body) throws BadRequestException {
+	@RequestMapping(value = "/check/user/info", method = RequestMethod.POST, consumes = "application/json")
+	public int checkUserIfExist(@RequestBody UserInfo body) throws BadRequestException {
 		if (body.getEmail() != null && !body.getEmail().isEmpty()) {
 			Optional<UserInfoBean> user = userInfoRepository.findByEmail(body.getEmail());
 			if (user.isPresent()) {
-				throw new BadRequestException(Constant.MAIL_USED, Constant.ERR_610_CODE);
+				throw new BadRequestException(Constant.MAIL_USED, Constant.MAIL_USED_CODE);
+			}
+		}
+		if (body.getUsername() != null && !body.getUsername().isEmpty()) {
+			UserInfoBean user = userInfoRepository.findByUsername(body.getUsername());
+			if (user != null) {
+				throw new BadRequestException(Constant.USERNAME_USED, Constant.USERNAME_USED_CODE);
 			}
 		}
 		return 0;

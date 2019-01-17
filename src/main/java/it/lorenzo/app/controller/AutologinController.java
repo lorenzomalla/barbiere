@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,7 +25,7 @@ import it.lorenzo.app.bean.UserInfoBean;
 import it.lorenzo.app.repository.UserInfoRepository;
 
 @Controller
-public class IndexController {
+public class AutologinController {
 
 	@Autowired
 	UserInfoRepository userRepository;
@@ -33,12 +34,15 @@ public class IndexController {
 	public AuthenticationManager authenticationManager;
 
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)
-	public String homepage(Model model, HttpServletRequest request) {
+	public String homepage(Model model, HttpServletRequest request, HttpSession session) {
 		Principal principal = request.getUserPrincipal();
-		System.out.println(principal);
+		System.out.println("Utente loggato : " + principal.getName());
 		String usernameLogged = principal.getName();
 		model.addAttribute("username", usernameLogged);
-		return "hello";
+//		System.out.println(session.getId()); // Il sessionId è uguale per lo stesso utente loggato
+		session.setMaxInactiveInterval(60 * 24 * 24);// 24 H di Login
+		// refreshato piu volte no)
+		return "homepage";
 	}
 
 	@RequestMapping(value = "/register/signup", method = { RequestMethod.GET, RequestMethod.POST })
@@ -55,7 +59,8 @@ public class IndexController {
 				System.out.println((String.format("Auto login %s successfully!", user.getUsername())));
 			}
 		} catch (Exception e) {
-			System.out.println(e.getMessage() + e);
+			// TODO: Da rilanciare eccezione customizzata quando l'auto login va in errore
+			System.out.println("Autologin fallito." + e.getMessage());
 		}
 		return "redirect:/hello";
 	}
