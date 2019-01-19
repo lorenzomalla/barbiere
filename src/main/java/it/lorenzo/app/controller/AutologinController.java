@@ -52,7 +52,7 @@ public class AutologinController {
 			UserInfoBean activeUserInfo = userRepository.findByUsernameAndEnabled(user.getUsername(), true);
 			authorities.add(new SimpleGrantedAuthority(activeUserInfo.getRole()));
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-					activeUserInfo.getUsername(), user.getUsername(), authorities);
+					activeUserInfo.getUsername(), user.getPassword(), authorities);
 			authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 			if (usernamePasswordAuthenticationToken.isAuthenticated()) {
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
