@@ -41,12 +41,15 @@ public class AutologinController {
 		model.addAttribute("username", usernameLogged);
 //		System.out.println(session.getId()); // Il sessionId è uguale per lo stesso utente loggato
 		session.setMaxInactiveInterval(60 * 24 * 24);// 24 H di Login
+		UserInfoBean activeUserInfo = userRepository.findByUsername(usernameLogged);
+		request.getSession().setAttribute("userSession", activeUserInfo);
 		// refreshato piu volte no)
 		return "homepage";
 	}
 
 	@RequestMapping(value = "/register/signup", method = { RequestMethod.GET, RequestMethod.POST })
-	public String registerUser(@ModelAttribute("user") UserInfoBean user) throws IOException {
+	public String registerUser(@ModelAttribute("user") UserInfoBean user, HttpServletRequest request)
+			throws IOException {
 		try {
 			HashSet<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 			UserInfoBean activeUserInfo = userRepository.findByUsernameAndEnabled(user.getUsername(), true);

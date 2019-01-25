@@ -1,75 +1,77 @@
+var startDateBooking;
+var endDateBooking;
+
+function getBookingObject(startDateBooking, endDateBooking, title) {
+    var booking = {
+        "startDateBooking": startDateBooking,
+        "endDateBooking": endDateBooking,
+        "title": title
+    }
+    return booking;
+}
 $(document).ready(function() {
-
-	$('#calendar').fullCalendar({
-		header : {
-			left : 'prev,next today',
-			center : 'title',
-			right : 'month,agendaWeek,agendaDay'
-		},
-		defaultDate : '2019-01-12',
-		navLinks : true, // can click day/week names to navigate views
-		selectable : true,
-		selectHelper : true,
-		select : function(start, end) {
-			var title = prompt('Event Title:');
-			var eventData;
-			if (title) {
-				eventData = {
-					title : title,
-					start : start,
-					end : end
-				};
-				$('#calendar').fullCalendar('renderEvent', eventData, true); // stick?
-																				// =
-																				// true
-			}
-			$('#calendar').fullCalendar('unselect');
-		},
-		editable : true,
-		eventLimit : true, // allow "more" link when too many events
-		// events : [ {
-		// title : 'All Day Event',
-		// start : '2019-01-01'
-		// }, {
-		// title : 'Long Event',
-		// start : '2019-01-07',
-		// end : '2019-01-10'
-		// }, {
-		// id : 999,
-		// title : 'Repeating Event',
-		// start : '2019-01-09T16:00:00'
-		// }, {
-		// id : 999,
-		// title : 'Repeating Event',
-		// start : '2019-01-16T16:00:00'
-		// }, {
-		// title : 'Conference',
-		// start : '2019-01-11',
-		// end : '2019-01-13'
-		// }, {
-		// title : 'Meeting',
-		// start : '2019-01-12T10:30:00',
-		// end : '2019-01-12T12:30:00'
-		// }, {
-		// title : 'Lunch',
-		// start : '2019-01-12T12:00:00'
-		// }, {
-		// title : 'Meeting',
-		// start : '2019-01-12T14:30:00'
-		// }, {
-		// title : 'Happy Hour',
-		// start : '2019-01-12T17:30:00'
-		// }, {
-		// title : 'Dinner',
-		// start : '2019-01-12T20:00:00'
-		// }, {
-		// title : 'Birthday Party',
-		// start : '2019-01-13T07:00:00'
-		// }, {
-		// title : 'Click for Google',
-		//			url : 'http://google.com/',
-		//			start : '2019-01-28'
-		//		} ]
-	});
-
+    $('#calendar').fullCalendar({
+        defaultView: 'agendaDay',
+        events: function(start, end, timezone, callback) {
+            $.ajax({
+                url: '/rest/booking/getBookingOfWeek',
+                type: 'GET',
+                contentType: 'application/json',
+                cache: 'false',
+                success: function(data) {
+                    var events = [];
+                    $.each(data, function(index, data) {
+                        events.push({
+                            title: data['titoloPrenotazione'],
+                            start: moment.utc(data['startDateBooking']).zone(new Date().getTimezoneOffset()).format(), //incrementa il timezone locale
+                            end: moment.utc(data['endDateBooking']).zone(new Date().getTimezoneOffset()).format(),
+                        });
+                    });
+                    callback(events); // populate events
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        },
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true, // can click on select
+        selectHelper: true,
+        select: function(start, end) {
+            var title = prompt('Nome della prenotazione');
+            var eventData;
+            var booking = getBookingObject(start, end, title);
+            if (title) {
+                eventData = {
+                    title: title,
+                    start: start,
+                    end: end
+                };
+                $.ajax({
+                    url: '/rest/booking/saveUserBookingInfo',
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(booking),
+                    cache: 'false',
+                    success: function(data) {
+                        console.log("Data: " + data);
+                        if (data != null) {
+                            check = true;
+                            $('.form').submit();
+                        }
+                    },
+                    error: function(data) {
+                        if (data) {
+                            console.log(data.responseJSON.reason);
+                        }
+                    }
+                });
+                $('#calendar').fullCalendar('renderEvent', eventData, true);
+//                $('#calendar').fullCalendar('refetchEvents'); // stick?
+            }
+            $('#calendar').fullCalendar('unselect');
+        },
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+    });
 });
