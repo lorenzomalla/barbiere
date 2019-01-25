@@ -28,6 +28,14 @@ public class BookingRestController {
 	@Autowired
 	BookingInfoRepository bookingRepository;
 
+	/**
+	 * Salva la prenotazione per il cliente
+	 * @author lorenzo.mallardo
+	 * @param body
+	 * @param request
+	 * @return
+	 * @throws BadRequestException
+	 */
 	@RequestMapping(value = "/saveUserBookingInfo", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseBody
 	public ResponseEntity<UserBookingBean> registerUserInfo(@RequestBody UserBooking body, HttpServletRequest request)
@@ -44,6 +52,11 @@ public class BookingRestController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	/**
+	 * Recupera tutte le prenotazioni di tutti i clienti
+	 * @author lorenzo.mallardo
+	 * @return
+	 */
 	@RequestMapping(value = "/getAllBookingInfo", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<Iterable<UserBookingBean>> getAllBookingInfo() {
@@ -51,6 +64,12 @@ public class BookingRestController {
 		return new ResponseEntity<Iterable<UserBookingBean>>(listUserBooking, HttpStatus.OK);
 	}
 
+	/**
+	 * Metodo per cercare tutte le prenotazioni presente dalla data attuale fino ad
+	 * una settimana
+	 * @author lorenzo.mallardo
+	 * @return
+	 */
 	@RequestMapping(value = "/getBookingOfWeek", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<List<UserBookingBean>> getBookingInfoBetweenStartEndDate() {

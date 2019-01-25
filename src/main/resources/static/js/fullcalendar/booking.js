@@ -1,6 +1,6 @@
 var startDateBooking;
 var endDateBooking;
-
+// Ottieni l'oggetto per chiamare il backend
 function getBookingObject(startDateBooking, endDateBooking, title) {
     var booking = {
         "startDateBooking": startDateBooking,
@@ -10,6 +10,7 @@ function getBookingObject(startDateBooking, endDateBooking, title) {
     return booking;
 }
 $(document).ready(function() {
+//	inizializza il calendario
     $('#calendar').fullCalendar({
         defaultView: 'agendaDay',
         events: function(start, end, timezone, callback) {

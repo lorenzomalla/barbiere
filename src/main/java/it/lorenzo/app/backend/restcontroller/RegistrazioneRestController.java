@@ -30,6 +30,14 @@ public class RegistrazioneRestController {
 	@Autowired
 	PasswordEncoder encoder;
 
+	/**
+	 * Registra un nuovo cliente al sistema settando il ruolo in USER Cripta la
+	 * password e aggiunge la data attuale che si è registrato
+	 * 
+	 * @param body
+	 * @return
+	 * @throws BadRequestException
+	 */
 	@RequestMapping(value = "/saveUserInfo", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
 	public ResponseEntity<UserInfoBean> registerUserInfo(@RequestBody UserInfo body) throws BadRequestException {
@@ -53,6 +61,13 @@ public class RegistrazioneRestController {
 		}
 	}
 
+	/**
+	 * Check dei parametri di input per la registrazione
+	 * 
+	 * @param body
+	 * @return
+	 * @throws BadRequestException
+	 */
 	@RequestMapping(value = "/check/user/info", method = RequestMethod.POST, consumes = "application/json")
 	public int checkUserIfExist(@RequestBody UserInfo body) throws BadRequestException {
 		if (body.getEmail() != null && !body.getEmail().isEmpty()) {
