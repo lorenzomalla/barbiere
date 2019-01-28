@@ -41,12 +41,14 @@ $(document).ready(function() {
         select: function(start, end) {
             var title = prompt('Nome della prenotazione');
             var eventData;
-            var booking = getBookingObject(start, end, title);
+            var startDate = moment.utc(data['startDateBooking']).zone(new Date().getTimezoneOffset()).format();
+            var endDate = moment.utc(data['endDateBooking']).zone(new Date().getTimezoneOffset()).format()
+            var booking = getBookingObject(startDate, endDate, title);
             if (title) {
                 eventData = {
                     title: title,
-                    start: start,
-                    end: end
+                    start: startDate,
+                    end: endDate
                 };
                 $.ajax({
                     url: '/rest/booking/saveUserBookingInfo',

@@ -36,10 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/css/**", "/registrazione", "/js/**", "/rest/**", "/register/signup")
+		http.authorizeRequests()
+				.antMatchers("/css/**", "/registrazione", "/js/**", "/rest/**", "/register/signup", "/generateOTP",
+						"/validateOTP")
 				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
-				.defaultSuccessUrl("/hello", true).and().logout().permitAll().and().csrf()
-				.disable();
+				.defaultSuccessUrl("/hello", true).and().logout().permitAll().and().csrf().disable();
 
 //		http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).sessionRegistry(sessionRegistry());
 

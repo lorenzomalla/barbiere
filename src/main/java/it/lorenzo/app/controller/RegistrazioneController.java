@@ -12,5 +12,5 @@ public class RegistrazioneController {
 	public String registerUser() {
 		return "registrazione";
 	}
-
+	
 }

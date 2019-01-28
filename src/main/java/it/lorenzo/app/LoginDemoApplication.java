@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = { "it.lorenzo.app.*" })
 //@PropertySources({ @PropertySource({ "classpath:application-repository.properties" }),
 //		@PropertySource("classpath:application.properties") })
 public class LoginDemoApplication {

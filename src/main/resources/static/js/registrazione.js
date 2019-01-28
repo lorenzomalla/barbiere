@@ -1,3 +1,12 @@
+$(document).ready(function() {
+	$('.registrati').hide();
+	// $('.otpbuttonvalidate').show();
+	$('#otpnum').bind("keyup", function() {
+		if ($(this).val().length == 6) {
+			validateOTP();
+		}
+	});
+});
 var check = false;
 // Populated Object
 function getAllCustomerInfo() {
@@ -112,7 +121,7 @@ $(function() {
 	});
 });
 // Validate FORM
-$(function() {
+function validateForm() {
 	$(".form").validate({
 		rules : {
 			email : {
@@ -141,7 +150,8 @@ $(function() {
 			}
 		}
 	});
-});
+	return $('.form').valid();
+}
 
 $(function() {
 	$('#email').blur(function() {
@@ -181,3 +191,54 @@ $(function() {
 		});
 	});
 });
+
+function generateOTP() {
+	var username = $(".username").val();
+	$.ajax({
+		type : "GET",
+		url : "/generateOTP",
+		data : {
+			username : username
+		},
+		dataType : 'text',
+		cache : false,
+		timeout : 600000,
+		success : function(response) {
+//			alert(response);
+		},
+		error : function(xhr, status, error) {
+			alert(xhr.responseText);
+		}
+	});
+}
+
+function validateOTP() {
+	var otpnum = $(".otpnum").val();
+	var username = $('.username').val();
+	var data = {
+		"username" : username,
+		"otpnum" : otpnum
+	};
+	$.ajax({
+		type : "GET",
+		url : "/validateOTP",
+		data : data,
+		dataType : 'text',
+		cache : false,
+		timeout : 600000,
+		success : function(response) {
+			alert("Codice OTP valido.")
+			$(".otp").hide();
+			$(".otpbutton").hide();
+			$(".registrati").show();
+		},
+		error : function(response) {
+			console.log(response);
+			if (response.status == 406) {
+				alert("Codice OTP non valido.");
+			} else {
+				alert("Errore nel server");
+			}
+		}
+	});
+}
