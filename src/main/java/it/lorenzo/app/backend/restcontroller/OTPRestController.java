@@ -26,8 +26,13 @@ public class OTPRestController {
 	@Autowired
 	public MyEmailService myEmailService;
 
+	/**
+	 * Genera il codice per la registrazione inviando una mail al barbiere
+	 * @author lorenzo.mallardo
+	 * @param username
+	 * @return
+	 */
 	@RequestMapping(value = "/generateOTP", method = RequestMethod.GET)
-//	@GetMapping("/generateOtp")
 	public ResponseEntity<String> generateOtp(@RequestParam("username") String username) {
 		int otp = otpService.generateOTP(username);
 		System.out.println("OTP : " + otp);
@@ -42,6 +47,13 @@ public class OTPRestController {
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
+	/**
+	 * Valida il codice generato e fornito dal barbiere per la registrazione
+	 * @author lorenzo.mallardo
+	 * @param otpnum
+	 * @param username
+	 * @return
+	 */
 	@RequestMapping(value = "/validateOTP", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<?> validateOtp(@RequestParam("otpnum") String otpnum,
 			@RequestParam("username") String username) {

@@ -12,6 +12,9 @@ function getBookingObject(startDateBooking, endDateBooking, title) {
 $(document).ready(function() {
 //	inizializza il calendario
     $('#calendar').fullCalendar({
+    	themeSystem: 'bootstrap3',
+    	timeFormat: 'H:mm',
+    	contentHeight: 600, //Adatta automaticamente il calendario a seconda del dispositivo
         defaultView: 'agendaDay',
         events: function(start, end, timezone, callback) {
             $.ajax({
@@ -41,8 +44,8 @@ $(document).ready(function() {
         select: function(start, end) {
             var title = prompt('Nome della prenotazione');
             var eventData;
-            var startDate = moment.utc(data['startDateBooking']).zone(new Date().getTimezoneOffset()).format();
-            var endDate = moment.utc(data['endDateBooking']).zone(new Date().getTimezoneOffset()).format()
+            var startDate = moment.utc(start).zone(new Date().getTimezoneOffset()).format();
+            var endDate = moment.utc(end).zone(new Date().getTimezoneOffset()).format()
             var booking = getBookingObject(startDate, endDate, title);
             if (title) {
                 eventData = {
