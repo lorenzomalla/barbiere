@@ -9,3 +9,7 @@
 .btn-group {
 	font-size: 17px !important;
 }
+
+.fc-time-grid-event {
+	border-radius: 4px;
+}

@@ -3,7 +3,6 @@ package it.lorenzo.app.securityconf;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -40,7 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 				.antMatchers("/css/**", "/registrazione", "/js/**", "/rest/**", "/register/signup", "/generateOTP",
 						"/validateOTP")
 				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
-				.defaultSuccessUrl("/hello", true).and().logout().permitAll().and().csrf().disable();
+				.defaultSuccessUrl("/hello", true).and().logout().permitAll().and().rememberMe()
+				.rememberMeParameter("remember-me").tokenRepository(tokenRepository()).and().csrf().disable();
 
 //		http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).sessionRegistry(sessionRegistry());
 
@@ -67,6 +68,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 	public SessionRegistry sessionRegistry() {
 		SessionRegistry sessionRegistry = new SessionRegistryImpl();
 		return sessionRegistry;
+	}
+
+	@Bean
+	public PersistentTokenRepository tokenRepository() {
+		JdbcTokenRepositoryImpl jdbcTokenRepositoryImpl = new JdbcTokenRepositoryImpl();
+		jdbcTokenRepositoryImpl.setDataSource(dataSource);
+		return jdbcTokenRepositoryImpl;
 	}
 
 }
