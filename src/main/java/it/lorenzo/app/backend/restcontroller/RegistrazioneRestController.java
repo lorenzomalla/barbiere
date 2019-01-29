@@ -56,9 +56,9 @@ public class RegistrazioneRestController {
 	}
 
 	private void checkParameterBody(UserInfo body) throws BadRequestException {
-		if (!body.getPassword().matches(Regex.REGEX_PASSWORD)) {
-			throw new BadRequestException(Constant.PASSWORD_MSG, Constant.PASSWORD_CODE);
-		}
+//		if (!body.getPassword().matches(Regex.REGEX_PASSWORD)) {
+//			throw new BadRequestException(Constant.PASSWORD_MSG, Constant.PASSWORD_CODE);
+//		}
 	}
 
 	/**
