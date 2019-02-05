@@ -2,18 +2,17 @@
 <html class="htmlLogin" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-
+<head>
+</head>
 <body>
 	<div th:replace="includes::stylesheets"></div>
-	<div class="jumbotron text-center">
-		<h1>Benvenuto in BookingBarber</h1>
-	</div>
+	<div class="jumbotron"></div>
 	<div class="container-fluid">
 		<div class="col-sm-3"></div>
 		<div class="col-sm-6">
 			<form class="form-horizontal" method="POST" th:action="@{/login}">
 				<div class="form-group">
-<!-- 										<label class="col-lg-3 control-label hidden-xs" for="email">Username:</label> -->
+					<!-- 										<label class="col-lg-3 control-label hidden-xs" for="email">Username:</label> -->
 					<div class="col-lg-offset-3 col-lg-9">
 						<input type="text" class="form-control" id="username"
 							name="username" placeholder="Inserisci l'username">

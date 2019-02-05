@@ -25,6 +25,6 @@ public class MyEmailService {
 		logger.info(to);
 		logger.info(message);
 		// Invia la mail
-//		javaMailSender.send(simpleMailMessage);
+		javaMailSender.send(simpleMailMessage);
 	}
 }

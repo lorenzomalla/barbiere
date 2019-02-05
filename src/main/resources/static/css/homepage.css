@@ -1,5 +1,5 @@
 body {
-	background: #eee;
+	background: url("../img/hr.png");
 }
 
 span {
@@ -18,9 +18,9 @@ a {
 
 .box-part {
 	background: #FFF;
-	border-radius: 20px;
+	border-radius: 25px;
 	padding: 10px 10px;
-	margin: 10px 0px;
+	margin: 10px 60px;
 }
 
 .text {

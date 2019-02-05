@@ -1,5 +1,6 @@
 package it.lorenzo.app.backend.restcontroller;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class BookingRestController {
 
 	/**
 	 * Salva la prenotazione per il cliente
+	 * 
 	 * @author lorenzo.mallardo
 	 * @param body
 	 * @param request
@@ -49,11 +51,12 @@ public class BookingRestController {
 		infoBean.setUserId(userLogged.getUserId());
 		bean.setUser(infoBean);
 		bookingRepository.save(bean);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(bean,HttpStatus.OK);
 	}
 
 	/**
 	 * Recupera tutte le prenotazioni di tutti i clienti
+	 * 
 	 * @author lorenzo.mallardo
 	 * @return
 	 */
@@ -67,6 +70,7 @@ public class BookingRestController {
 	/**
 	 * Metodo per cercare tutte le prenotazioni presente dalla data attuale fino ad
 	 * una settimana
+	 * 
 	 * @author lorenzo.mallardo
 	 * @return
 	 */
@@ -74,9 +78,18 @@ public class BookingRestController {
 	@ResponseBody
 	public ResponseEntity<List<UserBookingBean>> getBookingInfoBetweenStartEndDate() {
 		Date initialCurrentDate = Utils.getCurrentDateOfRegister();
-		Date finalDate = Utils.addDays(initialCurrentDate, 7);
-		List<UserBookingBean> listUserBooking = bookingRepository.findByStartDateBookingBetween(initialCurrentDate,
+		Date currentDateWithHour = setTimeCurrentDay(initialCurrentDate);
+		Date finalDate = Utils.addDays(currentDateWithHour, 7);
+		List<UserBookingBean> listUserBooking = bookingRepository.findByStartDateBookingBetween(currentDateWithHour,
 				finalDate);
 		return new ResponseEntity<List<UserBookingBean>>(listUserBooking, HttpStatus.OK);
+	}
+
+	private Date setTimeCurrentDay(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, 7);
+		cal.set(Calendar.MINUTE, 00);
+		return cal.getTime();
 	}
 }

@@ -41,10 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 						"/validateOTP")
 				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 				.defaultSuccessUrl("/hello", true).and().logout().permitAll().and().rememberMe()
-				.rememberMeParameter("remember-me").tokenRepository(tokenRepository()).and().csrf().disable();
-
-//		http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).sessionRegistry(sessionRegistry());
-
+				.rememberMeParameter("remember-me").rememberMeCookieName("booking-barber")
+				.tokenRepository(tokenRepository()).and().logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
+				.and().csrf().disable();
 	}
 
 	@Override

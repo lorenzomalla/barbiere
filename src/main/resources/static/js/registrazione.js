@@ -235,7 +235,7 @@ function validateOTP() {
 		error : function(response) {
 			console.log(response);
 			if (response.status == 406) {
-				alert("Codice OTP non valido.");
+//				alert("Codice OTP non valido.");
 			} else {
 				alert("Errore nel server");
 			}
