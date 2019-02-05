@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 				.defaultSuccessUrl("/hello", true).and().logout().permitAll().and().rememberMe()
 				.rememberMeParameter("remember-me").rememberMeCookieName("booking-barber")
-				.tokenRepository(tokenRepository()).and().logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
+				.tokenRepository(tokenRepository()).and().logout().logoutUrl("/login").deleteCookies("JSESSIONID")
 				.and().csrf().disable();
 	}
 
